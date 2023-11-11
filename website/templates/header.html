@@ -1,0 +1,37 @@
+<header class="p-3 text-bg-dark">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                Kobi-Deal
+            </a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+              {% if  session.loggedin == True :%}
+                <li><a href="/" id="home" class="nav-link px-2 text-secondary">Home</a></li>
+                <li><a href="/listing" class="nav-link px-2 text-white">Listing</a></li>
+                <li><a href="/preferences" class="nav-link px-2 text-white">Preferences</a></li>
+                <li><a href="/add_listing" class="nav-link px-2 text-white">Add new </a></li>
+                <li><a href="/offLineSearch" class="nav-link px-2 text-white">Offline search</a></li>
+               {%endif%}
+            </ul>
+
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..."
+                    aria-label="Search">
+            </form>
+
+            <div class="text-end">
+                {% if  session.loggedin == True : %}
+
+                <a type="button" id="logout" href="/logout" class="btn btn-outline-light me-2">Logout</a>
+                {% else %}
+
+                <a type="button" id="login" href="/login" class="btn btn-outline-light me-2">Login</a>
+                <a type="button" id="signUp" href="/sign-up" class="btn btn-warning">Sign-up</a>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+</header>

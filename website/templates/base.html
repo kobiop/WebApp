@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+
+    <title>HOME</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {%include'bootstrapCSS.html'%}
+
+   
+</head>
+
+<body>
+    {%include'header.html'%}
+
+    {%include'flashed_message.html'%}
+    <div class="container">
+        {% block content %}
+
+
+        {% endblock %}
+    </div>
+
+    {%include'footer.html'%}
+
+
+    {%include'bootstrapScript.html'%}
+
+    {% block javascript %}
+    <script type="text/javascript">
+        function deleteNote(noteId) {
+            fetch("/delete-note", {
+                method: "POST",
+                body: JSON.stringify({ noteId: noteId }),
+            }).then((_res) => {
+                window.location.href = "/";
+            });
+        }
+    </script>
+    {% endblock %}
+</body>
+
+</html>
+</body>
+
+
+
+</html>

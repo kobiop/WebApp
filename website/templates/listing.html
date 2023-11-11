@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+
+{% block title %}Listing{% endblock %}
+
+{% block content %}
+<div class="row">
+  {% for listing in listings %}
+  <div class="col-md-4">
+    <div class="card mb-4">
+      <img src="{{ listing['img_link'] }}" style="height: 200px; object-fit: cover;"
+        class="card-img-top fixed-height-image" alt="Listing Image">
+      <div class="card-body">
+        <h6 class="card-title"> {{ listing['address'] }}</h6>
+        <p class="card-text"><strong>Price:</strong>  {{ "${:,.0f}".format(listing['price'])  }}</p>
+        <!-- Button to open the modal -->
+        <button type="button" class="btn btn-outline-primary" data-toggle="modal"
+          data-target="#listingModal{{ listing['id'] }}">Details</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for this listing -->
+  <div class="modal fade" id="listingModal{{ listing['id'] }}" tabindex="-1" role="dialog"
+    aria-labelledby="listingModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="listingModalLabel">{{ listing['address'] }} Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <img src="{{ listing['img_link'] }}" style="height: 200px; object-fit: cover;"
+            class="card-img-top fixed-height-image mb-2" alt="Listing Image">
+
+          <!-- Populate the modal with detailed information -->
+          <div class="row">
+            <div class="col-md-6">
+              {% if listing['price'] %}
+              <p><strong>Price:</strong> {{ "${:,.0f}".format(listing['price']) }}</p>
+              {% endif %}
+              {% if listing['beds'] %}
+              <p><strong>Beds:</strong> {{ listing['beds'] | int }} </p>
+              {% endif %}
+              {% if listing['bathrooms'] %}
+              <p><strong>Bathrooms:</strong> {{ listing['bathrooms']| int  }} </p>
+              {% endif %}
+              {% if listing['property_type'] %} 
+              <p><strong>Property Type:</strong> {{ listing['property_type']  }}</p>
+              {% endif %}
+              {% if listing['garage'] %}
+              <p><strong>Garage:</strong> {{ listing['garage']| int  }} Cars</p>
+              {% endif %}
+            </div>
+            <div class="col-md-6">
+              {% if listing['year_built'] %}
+              <p><strong>Year Built:</strong> {{ '{:,.0f}'.format(listing['year_built'])  }}</p>
+              {% endif %}
+              {% if listing['sqft'] %}
+              <p><strong>Sqft:</strong> {{ '{:,.0f}'.format(listing['sqft'])   }}</p>
+              {% endif %}
+              {% if listing['sqft_lot'] %}
+              <p><strong>Sqft Lot:</strong> {{ '{:,.0f}'.format(listing['sqft_lot']) }}</p>
+              {% endif %}
+              {% if listing['HOA_fees'] %}
+              <p><strong>HOA Fees:</strong> {{ '${:,.0f}'.format(listing['HOA_fees']) }}/mo</p>
+              {% endif %}
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  <!-- Pagination -->
+  <div class="pagination-container">
+    <ul class="pagination justify-content-center">
+      <li class="page-item {% if page_number == 1 %}disabled{% endif %}">
+        <a class="page-link" href="{{ url_for('views.features', page_number=page_number - 1) }}"
+          tabindex="-1">Previous</a>
+      </li>
+      {% for page in range(1, total_pages + 1) %}
+      <li class="page-item {% if page == page_number %}active{% endif %}">
+        <a class="page-link" href="{{ url_for('views.features', page_number=page) }}">{{ page }}</a>
+      </li>
+      {% endfor %}
+      <li class="page-item {% if page_number == total_pages %}disabled{% endif %}">
+        <a class="page-link" href="{{ url_for('views.features', page_number=page_number + 1) }}">Next</a>
+      </li>
+    </ul>
+  </div>
+
+
+  {% block javascript %}
+  <script>
+    // Number of total pages (you can set this dynamically based on your content)
+    const totalPages = 5;
+
+    // Current page (initialize to 1)
+    let currentPage = 1;
+
+    // Get the pagination container
+    const paginationContainer = document.getElementById('pagination-container');
+
+    // Function to generate pagination links
+    function generatePagination(userpage) {
+      const ul = document.createElement('ul');
+      ul.className = 'pagination justify-content-center';
+
+      // Modify the "Previous" link
+      const liPrev = document.createElement('li');
+      liPrev.className = 'page-item';
+
+      if (currentPage === 1) {
+        liPrev.classList.add('disabled');
+      }
+      liPrev.innerHTML = `<a class="page-link prev" id="previousPage" href="/listing/${userpage}" tabindex="-1">Previous</a>`;
+      ul.appendChild(liPrev);
+
+      // Add page number links
+      for (let i = 1; i <= totalPages; i++) {
+        const li = document.createElement('li');
+        li.className = 'page-item';
+        if (i === currentPage) {
+          li.classList.add('active');
+        }
+        li.innerHTML = `<a class="page-link" href="/listing/${i}">${i}</a>`;
+        ul.appendChild(li);
+      }
+
+      // Modify the "Next" link
+      const liNext = document.createElement('li');
+      liNext.className = 'page-item';
+
+      if (currentPage === totalPages) {
+        liNext.classList.add('disabled');
+      }
+      liNext.innerHTML = `<a class="page-link next " id="nextPage" href="/listing/${userpage}">Next</a>`;
+      ul.appendChild(liNext);
+
+      // Replace the existing pagination links with the new ones
+      paginationContainer.innerHTML = '';
+      paginationContainer.appendChild(ul);
+    }
+
+    // Call the function to generate pagination on page load
+    generatePagination(currentPage);
+
+    // Function to handle page changes
+    function changePage(newPage) {
+      if (newPage >= 1 && newPage <= totalPages) {
+        currentPage = newPage;
+        const userpage = newPage// Update the currentPage variable
+        generatePagination(userpage);
+      }
+    }
+
+    // Event listeners for "Previous" and "Next" buttons
+    document.querySelector('.prev').addEventListener('click', function () { changePage(currentPage - 1) });
+    document.querySelector('.next').addEventListener('click', function () { changePage(currentPage + 1) });
+
+    // Event listener for page number links (for switching pages)
+    const pageLinks = document.querySelectorAll('.page-link');
+    pageLinks.forEach((link) => {
+      link.addEventListener('click', function () {
+        const pageNumber = parseInt(this.textContent); // Get the page number from the link text
+        changePage(pageNumber);
+      });
+    });
+  </script>
+
+
+
+
+  {% endblock %}
+
+</div>
+{% endblock %}

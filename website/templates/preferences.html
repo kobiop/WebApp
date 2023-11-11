@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Preferences</title>
+    {% include 'bootstrapCSS.html' %}
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    {% include 'header.html' %}
+    <h1 class="text-center mt-4">User Preferences</h1>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <form action="/preferences/apply" method="post">
+
+                    <div class="form-group">
+                        <label for="location">Location:</label>
+                        <input type="text" class="form-control" id="location" name="location">
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="location">Property Type:</label>
+                        <div>
+                            <label><input type="checkbox" name="propertyType" value='Single family'> Single family</label>
+                            <label><input type="checkbox" name="propertyType" value="Condo"> Condo </label>
+                            <label><input type="checkbox" name="propertyType" value="Townhome"> Townhome </label>
+                            <label><input type="checkbox" name="propertyType" value="Multi-Family"> Multi-Family</label>
+                            <label><input type="checkbox" name="propertyType" value="Land"> Land </label>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Price Range:</label>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <select class="form-control" id="min_price" name="min_price">
+                                    <option value="0"> Any </option>
+
+                                    <option value="50000">50,000</option>
+                                    <option value="120000">120,000</option>
+                                    <option value="200000">200,000</option>
+                                    <option value="270000">270,000</option>
+                                    <option value="350000">350,000</option>
+                                    <!-- Add more options here with integer values -->
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-control" id="max_price" name="max_price">
+                                    <option value="0"> Any </option>
+                                    <option value="50000">50,000</option>
+                                    <option value="120000">120,000</option>
+                                    <option value="200000">200,000</option>
+                                    <option value="270000">270,000</option>
+                                    <option value="350000">350,000</option>
+                                    <!-- Add more options here with integer values -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="min_bedrooms">Min Bedrooms:</label>
+                            <select class="form-control" id="min_bedrooms" name="min_bedrooms">
+                                <option value="0"> Any </option>
+                                <option value="1"> 1 </option>
+                                <option value="2"> 2 </option>
+                                <option value="3"> 3 </option>
+                                <option value="4"> 4 </option>
+                                <option value="5"> 5 </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="max_bedrooms">Max Bedrooms:</label>
+                            <select class="form-control" id="max_bedrooms" name="max_bedrooms">
+                                <option value="0"> Any </option>
+                                <option value="1"> 1 </option>
+                                <option value="2"> 2 </option>
+                                <option value="3"> 3 </option>
+                                <option value="4"> 4 </option>
+                                <option value="5"> 5 </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="min_bathrooms">Min Bathrooms:</label>
+                            <select class="form-control" id="min_bathrooms" name="min_bathrooms">
+                                <option value="0"> Any </option>
+                                <option value="1"> 1 </option>
+                                <option value="2"> 2 </option>
+                                <option value="3"> 3 </option>
+                                <option value="4"> 4 </option>
+                                <option value="5"> 5 </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="max_bathrooms">Max Bathrooms:</label>
+                            <select class="form-control" id="max_bathrooms" name="max_bathrooms">
+                                <option value="0"> Any </option>
+                                <option value="1"> 1 </option>
+                                <option value="2"> 2 </option>
+                                <option value="3"> 3 </option>
+                                <option value="4"> 4 </option>
+                                <option value="5"> 5 </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="HOA_fees">HOA Fees:</label>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <select class="form-control" id="hoa_fees_type" name="hoa_fees_type" required>
+                                    <option value="0">Any</option>
+                                    <option value="no_hoa">No HOA</option>
+                                    <option value="max_only">Select max HOA </option>
+                                </select>
+                            </div>
+                            <div class="col-md-6" id="max_HOA_fees_container" style="display: none;">
+                                <select class="form-control" id="max_HOA_fees" name="max_HOA_fees">
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                    <option value="300">300</option>
+                                    <option value="400">400</option>
+                                    <option value="500">500</option>
+                                    <!-- Add more options here -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="sqft">Sqft Range:</label>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <select class="form-control" id="min_sqft" name="min_sqft" required>
+                                        <option value="0"> Any </option>
+
+                                        <option value="500"> 500 sqft </option>
+                                        <option value="750"> 750 sqft </option>
+                                        <option value="1000"> 1,000 sqft </option>
+                                        <option value="1250"> 1,250 sqft </option>
+                                        <option value="1500"> 1,500 sqft </option>
+                                        <option value="1750"> 1,750 sqft </option>
+                                        <option value="2000"> 2,000 sqft </option>
+                                        <option value="2250"> 2,250 sqft </option>
+                                        <option value="2500"> 2,500 sqft </option>
+                                        <option value="2750"> 2,750 sqft </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-control" id="max_sqft" name="max_sqft" required>
+                                        <option value="0"> Any </option>
+
+                                        <option value="500"> 500 sqft </option>
+                                        <option value="750"> 750 sqft </option>
+                                        <option value="1000"> 1,000 sqft </option>
+                                        <option value="1250"> 1,250 sqft </option>
+                                        <option value="1500"> 1,500 sqft </option>
+                                        <option value="1750"> 1,750 sqft </option>
+                                        <option value="2000"> 2,000 sqft </option>
+                                        <option value="2250"> 2,250 sqft </option>
+                                        <option value="2500"> 2,500 sqft </option>
+                                        <option value="2750"> 2,750 sqft </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="sqft_lot">Sqft Lot Range:</label>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <select class="form-control" id="min_sqft_lot" name="min_sqft_lot" required>
+                                        <option value="0"> Any </option>
+
+                                        <option value="2000"> 2,000 sqft </option>
+                                        <option value="3000"> 3,000 sqft </option>
+                                        <option value="4000"> 4,000 sqft </option>
+                                        <option value="5000"> 5,000 sqft </option>
+                                        <option value="7500"> 7,500 sqft </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-control" id="max_sqft_lot" name="max_sqft_lot" required>
+                                        <option value="0"> Any </option>
+
+                                        <option value="2000"> 2,000 sqft </option>
+                                        <option value="3000"> 3,000 sqft </option>
+                                        <option value="4000"> 4,000 sqft </option>
+                                        <option value="5000"> 5,000 sqft </option>
+                                        <option value="7500"> 7,500 sqft </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="homeAge">Min built year:</label>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <select class="form-control" id="min_home_age" name="min_home_age" required>
+                                        <option value="0"> Any </option>
+
+                                        <option value="1970">1970</option>
+                                        <option value="1980">1980</option>
+                                        <option value="1990">1990</option>
+                                        <option value="2000">2000</option>
+                                        <option value="2010">2010</option>
+                                        <option value="2020">2020</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="garage">Number of Garages:</label>
+                        <div>
+                            <label><input type="checkbox" name="garage" value="1"> 1 </label>
+                            <label><input type="checkbox" name="garage" value="2"> 2 </label>
+                            <label><input type="checkbox" name="garage" value="3"> 3 </label>
+                            <label><input type="checkbox" name="garage" value="4"> 4 </label>
+                        </div>
+                    </div>
+
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Save Preferences</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {%include'bootstrapScript.html'%}
+
+    {% block javascript %}
+    <script type="text/javascript">
+        document.getElementById("hoa_fees_type").addEventListener("change", function () {
+            var maxHoaFeesContainer = document.getElementById("max_HOA_fees_container");
+            if (this.value === "max_only") {
+                maxHoaFeesContainer.style.display = "block";
+            } else {
+                maxHoaFeesContainer.style.display = "none";
+            }
+        });
+
+    </script>
+    <script type="text/javascript">
+        function filterProperties() {
+            const checkboxes = document.querySelectorAll('input[name="propertyType"]:checked');
+            const selectedTypes = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+            // You can perform filtering or other actions based on selectedTypes
+            console.log("Selected Property Types:", selectedTypes);
+            // Add your filtering logic here
+        }
+    </script>
+
+    {% endblock %}
+</body>
+
+</select>

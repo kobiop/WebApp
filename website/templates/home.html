@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Website</title>
+    <link rel="stylesheet" href="css/mdb.min.css">
+    {%include'bootstrapCSS.html'%}
+
+    <style>
+        .bg-image {
+            background-image: url('/static/background_image.jpg');
+            height: 500px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .search-bar {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 100px;
+        }
+
+        .search-bar input[type="text"] {
+            width: 100%;
+        }
+
+        body {
+            color: #fff;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    {%include'header.html'%}
+
+    <div class="bg-image" >
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 offset-md-3 search-bar">
+                    <h1>Find Your Dream Home</h1>
+                    <p>Discover the perfect property that suits your needs</p>
+                    <form action="search_results.html">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Enter Location, Property Type, etc."
+                                aria-label="Search" aria-describedby="search-button">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" id="search-button">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
