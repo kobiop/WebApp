@@ -1,9 +1,13 @@
 
 from sqlalchemy import create_engine, text
 from flask_mail import Mail,Message
+import os
 #from website.email_config import mail  # Import the mail object from email.py
 
-connection_string='mysql+pymysql://k9q9lyqeistsxg79rqs5:pscale_pw_YijpkUAjKUbljhu0mgjltw7osyYglwNyLKYKv6cu1Jt@aws.connect.psdb.cloud/apartments?charset=utf8mb4'
+connection_string=os.environ.get('connection_string')
+print(connection_string)
+#connection_string="mysql+pymysql://pk00e29bp5ye8qn4dihr:pscale_pw_tm41ejPMsBqWlqXTxa1cjlJKPLajKrO1PCiYDmGqD17@aws.connect.psdb.cloud/apartments?charset=utf8mb4"
+
 engine = create_engine(connection_string,
                        connect_args={"ssl": {
                            "ssl_ca": "/etc/ssl/cert.pem"
