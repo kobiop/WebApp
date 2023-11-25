@@ -4,5 +4,4 @@ flask_sqlalchemy
 flask_login
 flask_apscheduler
 flask_mail
-pymysql
 mysql
