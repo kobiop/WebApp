@@ -4,9 +4,9 @@ from flask_mail import Mail,Message
 import os
 #from website.email_config import mail  # Import the mail object from email.py
 
-# connection_string=os.environ.get('connection_string')
-# print(connection_string)
-connection_string="mysql+pymysql://fntuvirissp1ig7zc8ip:pscale_pw_aip5c5FrzUQQeoVTLHO0cLAHAR0qT4CJF9IFeoZ6VJk@aws.connect.psdb.cloud/apartments?charset=utf8mb4"
+connection_string=os.environ.get('connection_string')
+print(connection_string)
+#connection_string="mysql+pymysql://yvbzf0ogsveav1sftcmu:pscale_pw_QyPWSH9kBApic5Kp26lozUmj6zPAb672RxS7EQSBIXh@aws.connect.psdb.cloud/apartments?charset=utf8mb4"
 
 engine = create_engine(connection_string,
                        connect_args={"ssl": {

@@ -24,7 +24,9 @@ def scheduled_job():
 
 if __name__ == '__main__':
     shced.add_job(id='job1',func=scheduled_job,trigger='interval',seconds=20)
+    app.debug = True
+
     #shced.start()
-    app.run(debug=True)
+    app.run()
 
     
