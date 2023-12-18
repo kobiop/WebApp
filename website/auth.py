@@ -19,8 +19,8 @@ def login():
         password = request.form['password']
         mydb = mysql.connector.connect(
         host="aws.connect.psdb.cloud",
-        user="yvbzf0ogsveav1sftcmu",
-        password="pscale_pw_QyPWSH9kBApic5Kp26lozUmj6zPAb672RxS7EQSBIXh")
+        user="v7ksxyhwiyvck3ehk73z",
+        password="pscale_pw_UihWfqn6aKIfFKGfV0fPgFjxrlf1GF5InL02NlBjRU1")
 
         mycursor = mydb.cursor()
         sql='SELECT * FROM user WHERE email = %s'
@@ -65,8 +65,8 @@ def sign_up():
         email = request.form['email']
         mydb = mysql.connector.connect(
         host="aws.connect.psdb.cloud",
-        user="yvbzf0ogsveav1sftcmu",
-        password="pscale_pw_QyPWSH9kBApic5Kp26lozUmj6zPAb672RxS7EQSBIXh"
+        user="v7ksxyhwiyvck3ehk73z",
+        password="pscale_pw_UihWfqn6aKIfFKGfV0fPgFjxrlf1GF5InL02NlBjRU1"
         )
         print(firstName,lastName ,password ,email )
         mycursor = mydb.cursor()

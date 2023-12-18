@@ -6,7 +6,7 @@ import os
 
 # connection_string=os.environ.get('connection_string')
 # print(connection_string)
-connection_string="mysql+pymysql://yvbzf0ogsveav1sftcmu:pscale_pw_QyPWSH9kBApic5Kp26lozUmj6zPAb672RxS7EQSBIXh@aws.connect.psdb.cloud/apartments?charset=utf8mb4"
+connection_string="mysql+pymysql://v7ksxyhwiyvck3ehk73z:pscale_pw_UihWfqn6aKIfFKGfV0fPgFjxrlf1GF5InL02NlBjRU1@aws.connect.psdb.cloud/apartments?charset=utf8mb4"
 
 engine = create_engine(connection_string,
                        connect_args={"ssl": {
