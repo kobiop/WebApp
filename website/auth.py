@@ -7,7 +7,12 @@ from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash ,check_password_hash
 import re
 import mysql.connector
-
+from dotenv import load_dotenv
+import os 
+load_dotenv() 
+host_env = os.environ.get("DB_HOST")
+password_env=os.environ.get("DB_USERNAME")
+username_env=os.environ.get("DB_PASSWORD")
 auth = Blueprint('auth', __name__)
 
 
@@ -18,9 +23,9 @@ def login():
         email= request.form['email']
         password = request.form['password']
         mydb = mysql.connector.connect(
-        host="aws.connect.psdb.cloud",
-        user="v7ksxyhwiyvck3ehk73z",
-        password="pscale_pw_UihWfqn6aKIfFKGfV0fPgFjxrlf1GF5InL02NlBjRU1")
+        host=host_env,
+        user=password_env,
+        password=username_env)
 
         mycursor = mydb.cursor()
         sql='SELECT * FROM user WHERE email = %s'
@@ -64,10 +69,9 @@ def sign_up():
         hash_password=generate_password_hash(password, "sha256")
         email = request.form['email']
         mydb = mysql.connector.connect(
-        host="aws.connect.psdb.cloud",
-        user="v7ksxyhwiyvck3ehk73z",
-        password="pscale_pw_UihWfqn6aKIfFKGfV0fPgFjxrlf1GF5InL02NlBjRU1"
-        )
+        host=host_env,
+        user=password_env,
+        password=username_env)
         print(firstName,lastName ,password ,email )
         mycursor = mydb.cursor()
         sql='SELECT * FROM user WHERE first_name = %s'
