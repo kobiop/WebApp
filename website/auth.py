@@ -8,11 +8,11 @@ from werkzeug.security import generate_password_hash ,check_password_hash
 import re
 import mysql.connector
 from dotenv import load_dotenv
-import os 
-load_dotenv() 
-host_env = os.environ.get("DB_HOST")
-password_env=os.environ.get("DB_USERNAME")
-username_env=os.environ.get("DB_PASSWORD")
+# import os 
+# #load_dotenv() 
+# host_env = os.environ.get("DB_HOST")
+# password_env=os.environ.get("DB_USERNAME")
+# username_env=os.environ.get("DB_PASSWORD")
 auth = Blueprint('auth', __name__)
 
 
