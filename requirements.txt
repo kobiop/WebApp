@@ -6,4 +6,4 @@ flask_apscheduler
 flask_mail
 pymysql
 mysql.connector
-dotenv
+python-dotenv
